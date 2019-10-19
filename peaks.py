@@ -8,7 +8,7 @@ import scipy
 
 da = ''
 
-with open('dataset1.txt','r') as fil:
+with open('./Data/dataset1.txt','r') as fil:
     da=fil.readlines()
 splitdata=[]
 for i in range(1,len(da)):
@@ -55,7 +55,8 @@ Peaks=ProtoPeaks[0]
 print(Peaks)
 print(len(Peaks))
 #Print and plot the peaks.
-pl.plot(Peaks,data[Peaks,1], 'ro', color='red')
 pl.plot(data[:,1])
+pl.plot(Peaks,data[Peaks,1], 'ro', color='red')
+
 pl.show()
 
