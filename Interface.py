@@ -1,5 +1,6 @@
 import tkinter as tk
 from collections import namedtuple, OrderedDict
+from tkinter.filedialog import askopenfilename
 
 #window
 root = tk.Tk()
@@ -23,8 +24,8 @@ label.pack()
 
 #call back for Button
 def selectfile():
-    filename =  askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-print(filename)
+    filename = askopenfilename (initialdir = "/",title = "Select file",filetypes = ("txt files","*.txt"))
+    print(filename)
 
 #button to import data in
 button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format(), command = selectfile)
