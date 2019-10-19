@@ -49,21 +49,22 @@ def diff(y,x):
 differ=(diff(data[:,1],data[:,0]))    
 #pl.plot(data[:,0],differ)
 
-decomposer=hht.EMD(data[:,1]+data[:,0])
-imfs = decomposer.decompose()
+imfs=np.array([])
+# spectrum = hilbert(denoised)
+# phase = np.unwrap(np.angle(spectrum))
+# freq = (np.diff(phase)/(2.0*np.pi))*744
+#vis.plot_imfs(data[:,0]+data[:,3],imfs,data[:,0])
 
-denoised=data[:,1]-imfs[0]
-
-spectrum = hilbert(denoised)
-phase = np.unwrap(np.angle(spectrum))
-freq = (np.diff(phase)/(2.0*np.pi))*744
-
-q=np.zeros(744)
-for i in range(4,7):
-    q=q+imfs[i]
-#vis.plot_imfs(data[:,0]+data[:,1],imfs,data[:,0])
-
-pl.plot(freq)
-pl.plot(data[:,0],denoised)
+for i in range(1,27):
+    ax= pl.subplot(26,1,i)
+    ax.plot(data[:,0],data[:,i])
+    
 pl.show()
+for i in range(1,27):
+    ax2=pl.subplot(26,1,i)
+    decomposer=hht.EMD(data[:,i]+data[:,0])
+    ax2.plot(data[:,0],decomposer.decompose()[1])
+
+pl.show()
+
 
