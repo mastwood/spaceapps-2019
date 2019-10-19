@@ -5,7 +5,7 @@ import matplotlib.pyplot as pl
 import pyhht as hht
 import pyhht.visualization as vis
 import pyhht.utils as hut
-from scipy.signal import hilbert 
+from scipy.signal import hilbert , correlate
 
 da = ''
 
@@ -55,15 +55,28 @@ imfs=np.array([])
 # freq = (np.diff(phase)/(2.0*np.pi))*744
 #vis.plot_imfs(data[:,0]+data[:,3],imfs,data[:,0])
 
+crosscor=correlate(data[:,1],data[:,2],mode='same')/len(data[:,1])
+ax=pl.subplot(3,1,1)
+ax.plot(crosscor)
+ax2=pl.subplot(3,1,2)
+ax2.plot(data[:,0],data[:,1])
+ax3=pl.subplot(3,1,3)
+ax3.plot(data[:,0],data[:,2])
+pl.show()
 for i in range(1,27):
-    ax= pl.subplot(26,1,i)
+    ax= pl.subplot(27,1,i)
+    envelope=np.abs(hilbert(data[:,i]))
     ax.plot(data[:,0],data[:,i])
-    
+    ax.plot(data[:,0],envelope)
+
 pl.show()
 for i in range(1,27):
     ax2=pl.subplot(26,1,i)
     decomposer=hht.EMD(data[:,i]+data[:,0])
-    ax2.plot(data[:,0],decomposer.decompose()[1])
+    m=decomposer.decompose()[2]
+    envelope=np.abs(hilbert(m))
+    ax2.plot(data[:,0],m)
+    ax2.plot(data[:,0],envelope)
 
 pl.show()
 
