@@ -50,9 +50,9 @@ pl.show()
 
 #fourier transform
 fourierdata=[]
-for i in range(1,len(data[:])):
+for i in range(1,27):
     fourierdata.append(np.array(ff.fft(data[:,i])))
-
 fourierdata=np.array(fourierdata)
-
 print(fourierdata)
+
+#plot real fourier and imaginary fourier
