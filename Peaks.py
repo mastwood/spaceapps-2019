@@ -5,7 +5,7 @@ import pyhht as hht
 import pyhht.visualization as vis
 import numpy as np
 import scipy
-blep=0
+
 da = ''
 
 with open('./Data/dataset1.txt','r') as fil:
@@ -48,16 +48,15 @@ decomposer=hht.EMD(data[:,1]+data[:,0])
 imfs = decomposer.decompose()
 vis.plot_imfs(data[:,0]+data[:,1],imfs,data[:,0])
 
-for blep in range(0,27):    
-    #Determine where peaks are, change parameters for a change in what is defined as a "peak". In order, minimum height limit, vertical distance to neighbouring samples, horizontal distance to neighboring samples, how prominant a "peak" is, required width of peaks.
-    ProtoPeaks=scipy.signal.find_peaks(data[:,blep], height=0, threshold=0, distance=1, prominence=70, width=0)
-    Peaks=ProtoPeaks[0]
-    print("For the below graph, (graph  number",blep,")the peaks as defined by the paramters on line 53 of the program are at")
-    print(Peaks)
-    print("and there are",len(Peaks),"Peaks.")
-    
-    #Print and plot the peaks.
-    pl.plot(Peaks,data[Peaks,blep], 'ro', color='red')
-    pl.plot(data[:,blep])
-    pl.show()
-    blep=blep+1
+
+#Determine where peaks are, change parameters for a change in what is defined as a "peak". In order, minimum height limit, vertical distance to neighbouring samples, horizontal distance to neighboring samples, how prominant a "peak" is, required width of peaks.
+ProtoPeaks=scipy.signal.find_peaks(data[:,1], height=0, threshold=0, distance=1, prominence=70, width=0)
+Peaks=ProtoPeaks[0]
+print(Peaks)
+print(len(Peaks))
+#Print and plot the peaks.
+pl.plot(data[:,1])
+pl.plot(Peaks,data[Peaks,1], 'ro', color='red')
+
+pl.show()
+

@@ -24,7 +24,11 @@ label.pack()
 
 #call back for Button
 def selectfile():
+<<<<<<< HEAD
     filename = askopenfilename (initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),))
+=======
+    filename = askopenfilename (initialdir = "/",title = "Select file",filetypes = ("all files","*.*"))
+>>>>>>> 40f7f1ed2a2085e0bdf897de64b16ab781accb38
     print(filename)
 
 #button to import data in
