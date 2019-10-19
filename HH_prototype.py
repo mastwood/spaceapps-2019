@@ -4,6 +4,8 @@ import csv as cs
 import matplotlib.pyplot as pl 
 import pyhht as hht
 import pyhht.visualization as vis
+import pyhht.utils as hut
+from scipy.signal import hilbert 
 
 da = ''
 
@@ -29,7 +31,7 @@ data=np.array(splitdata[3:len(splitdata)]).astype(float)
 #     csvwriter.writerows(splitdata)
 
 #data[:,0] is the time column (in units of Hours)
-pl.plot(data[:,0],data[:,1])
+# pl.plot(data[:,0],data[:,1])
 #pl.show()
 
 #this function computes the derivative of one array wrt another
@@ -45,10 +47,23 @@ def diff(y,x):
 
 #computing the derivative of column 1 wrt time
 differ=(diff(data[:,1],data[:,0]))    
-pl.plot(data[:,0],differ)
+#pl.plot(data[:,0],differ)
 
 decomposer=hht.EMD(data[:,1]+data[:,0])
 imfs = decomposer.decompose()
-vis.plot_imfs(data[:,0]+data[:,1],imfs,data[:,0])
-#pl.show()
+
+denoised=data[:,1]-imfs[0]
+
+spectrum = hilbert(denoised)
+phase = np.unwrap(np.angle(spectrum))
+freq = (np.diff(phase)/(2.0*np.pi))*744
+
+q=np.zeros(744)
+for i in range(4,7):
+    q=q+imfs[i]
+#vis.plot_imfs(data[:,0]+data[:,1],imfs,data[:,0])
+
+pl.plot(freq)
+pl.plot(data[:,0],denoised)
+pl.show()
 
