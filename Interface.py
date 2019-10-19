@@ -20,8 +20,16 @@ var = tk.StringVar()
 label = tk.Label(root, textvariable = var)
 var.set("Important geomagnetic data here :")
 label.pack()
+
+#Call back for Button
+window = tk.Tk()
+
+def selectfile():
+    window.filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+
+
 #button to import data in
-button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format())
+button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format(), command = selectfile
 button.pack()
 
 root.mainloop()
