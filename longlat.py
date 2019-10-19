@@ -3,8 +3,12 @@ import pandas as pd
 import csv as cs
 
 da = ''
+s = '.\Data\dataset1.txt'
 
-with open('./Data/dataset1.txt','r') as fil:
+def loadfile(path):
+    s = path
+
+with open(s,'r') as fil:
     da=fil.readlines()
 
 splitdata=[]
@@ -17,7 +21,7 @@ data = []
 for i in range(0, len(splitdata)):
     splitdata[i][3] = float(splitdata[i][1])*np.pi/180
     data.append(np.append(splitdata[i], float(splitdata[i][2])*np.pi/180))
-print(data)
+
 
 with open('lat_long.csv','w') as fil:
      csvwriter = cs.writer(fil)
