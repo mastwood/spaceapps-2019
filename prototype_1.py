@@ -5,9 +5,13 @@ import matplotlib.pyplot as pl
 import scipy as sc
 import scipy.fftpack as ff
 
+s = '.\Data\dataset1.txt'
 da = ''
 
-with open('./Data/dataset1.txt','r') as fil:
+def loadfile(path):
+    s = path
+
+with open(s,'r') as fil:
     da=fil.readlines()
 
 splitdata=[]
@@ -24,9 +28,9 @@ for i in range(1, len(splitdata)):
 #This is the data array.
 data=np.array(splitdata[3:len(splitdata)]).astype(float)
 
-# with open('cleanedData.csv','w') as fil:
-#     csvwriter = cs.writer(fil)
-#     csvwriter.writerows(splitdata)
+with open('cleanedData.csv','w') as fil:
+    csvwriter = cs.writer(fil)
+    csvwriter.writerows(splitdata)
 
 #data[:,0] is the time column (in units of Hours)
 pl.plot(data[:,0],data[:,1])
