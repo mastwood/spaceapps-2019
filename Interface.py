@@ -3,6 +3,7 @@ from collections import namedtuple, OrderedDict
 
 #window
 root = tk.Tk()
+root.geometry("800x800")
 
 #importing colours for window
 Colour = namedtuple('RGB','red, green, blue')
@@ -16,6 +17,11 @@ class RGB(Colour):
 steelblue = RGB(79,148,205)
 grey = RGB(205,201,201)
 
+#label for button
+var = tk.StringVar()
+label = tk.Label(root, textvariable = var)
+var.set("Important geomagnetic data here :")
+label.pack()
 #button to import data in
 button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format())
 button.pack()
