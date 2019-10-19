@@ -19,13 +19,18 @@ for i in range(1, len(splitdata)):
     if not (splitdata[i][0].split('-')[0] == '\n' or splitdata[i][0].split('-')[0] == ''):
         splitdata[i][0] = (float(splitdata[i][0].split('-')[0]) - 1) * 24 + float(splitdata[i][0].split('-')[1])
 
-splitdata=np.array(splitdata[3:len(splitdata)]).astype(float)
+#This is the data array.
+data=np.array(splitdata[3:len(splitdata)]).astype(float)
 
 # with open('cleanedData.csv','w') as fil:
 #     csvwriter = cs.writer(fil)
 #     csvwriter.writerows(splitdata)
-pl.plot(splitdata[:,0],splitdata[:,1])
+
+#data[:,0] is the time column (in units of Hours)
+pl.plot(data[:,0],data[:,1])
 pl.show()
+
+#this function computes the derivative of one array wrt another
 def diff(y,x):
     if len(x)==len(y):
         q=[0]
@@ -36,7 +41,8 @@ def diff(y,x):
     else:
         print("Error: Invalid shape. x and y must be the same length")
 
-differ=(diff(splitdata[:,1],splitdata[:,0]))    
-pl.plot(splitdata[:,0],differ)
+#computing the derivative of column 1 wrt time
+differ=(diff(data[:,1],data[:,0]))    
+pl.plot(data[:,0],differ)
 pl.show()
 
