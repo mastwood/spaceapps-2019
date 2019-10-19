@@ -1,1 +1,1 @@
-import tkinter as t
+import tkinter as tk
