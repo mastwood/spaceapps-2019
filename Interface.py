@@ -21,17 +21,9 @@ label = tk.Label(root, textvariable = var)
 var.set("Important geomagnetic data here :")
 label.pack()
 
-<<<<<<< HEAD
 #call back for Button
-window = tk.Tk()
-=======
-#Call back for Button
-
->>>>>>> e62a7fc71ff7101ac08adcc86fb8173c97e48753
-
 def selectfile():
     filename =  askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-
 print(filename)
 
 #button to import data in
