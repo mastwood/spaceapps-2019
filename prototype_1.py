@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd 
 import csv as cs
+import matplotlib.pyplot as pl 
 
 da = ''
 
@@ -18,9 +19,24 @@ for i in range(1, len(splitdata)):
     if not (splitdata[i][0].split('-')[0] == '\n' or splitdata[i][0].split('-')[0] == ''):
         splitdata[i][0] = (float(splitdata[i][0].split('-')[0]) - 1) * 24 + float(splitdata[i][0].split('-')[1])
 
-with open('cleanedData.csv','w') as fil:
-    csvwriter = cs.writer(fil)
-    csvwriter.writerows(splitdata)
+splitdata=np.array(splitdata[3:len(splitdata)]).astype(float)
 
+# with open('cleanedData.csv','w') as fil:
+#     csvwriter = cs.writer(fil)
+#     csvwriter.writerows(splitdata)
+pl.plot(splitdata[:,0],splitdata[:,1])
+pl.show()
+def diff(y,x):
+    if len(x)==len(y):
+        q=[0]
+        for i in range(2,len(y)):
+            q.append((y[i]-y[i-1])/(x[i]-x[i-1]))
+        q.append(0)
+        return np.array(q)
+    else:
+        print("Error: Invalid shape. x and y must be the same length")
 
+differ=(diff(splitdata[:,1],splitdata[:,0]))    
+pl.plot(splitdata[:,0],differ)
+pl.show()
 
