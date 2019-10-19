@@ -24,7 +24,7 @@ label.pack()
 
 #call back for Button
 def selectfile():
-    filename = askopenfilename (initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+    filename = askopenfilename (initialdir = "/",title = "Select file",filetypes = ("txt files","*.txt"))
     print(filename)
 
 #button to import data in
