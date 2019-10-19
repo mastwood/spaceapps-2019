@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd 
 import csv as cs
 import matplotlib.pyplot as pl 
+import pyhht as hht
+import pyhht.visualization as vis
 
 da = ''
 
@@ -28,7 +30,7 @@ data=np.array(splitdata[3:len(splitdata)]).astype(float)
 
 #data[:,0] is the time column (in units of Hours)
 pl.plot(data[:,0],data[:,1])
-pl.show()
+#pl.show()
 
 #this function computes the derivative of one array wrt another
 def diff(y,x):
@@ -44,5 +46,9 @@ def diff(y,x):
 #computing the derivative of column 1 wrt time
 differ=(diff(data[:,1],data[:,0]))    
 pl.plot(data[:,0],differ)
-pl.show()
+
+decomposer=hht.EMD(data[:,1]+data[:,0])
+imfs = decomposer.decompose()
+vis.plot_imfs(data[:,0]+data[:,1],imfs,data[:,0])
+#pl.show()
 
