@@ -1,5 +1,11 @@
 import numpy as np
 import pandas as pd 
 
-da = pd.read_csv('./Data/dataset1.txt',sep='\t\t\t\t')
-print(da)
+da = ''
+with open('./Data/dataset1.txt','r') as fil:
+    da=fil.readlines()
+
+splitdata=[]
+for i in range(1,len(da)):
+    splitdata.append(da[i].split('\t\t\t\t'))
+print(splitdata)
