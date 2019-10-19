@@ -30,7 +30,7 @@ data=np.array(splitdata[3:len(splitdata)]).astype(float)
 
 #data[:,0] is the time column (in units of Hours)
 pl.plot(data[:,0],data[:,1])
-pl.show()
+#pl.show()
 
 #this function computes the derivative of one array wrt another
 def diff(y,x):
@@ -46,13 +46,17 @@ def diff(y,x):
 #computing the derivative of column 1 wrt time
 differ=(diff(data[:,1],data[:,0]))    
 pl.plot(data[:,0],differ)
-pl.show()
+#pl.show()
 
 #fourier transform
 fourierdata=[]
 for i in range(1,27):
-    fourierdata.append(np.array(ff.fft(data[:,i])))
+    fourierdata.append(np.array(ff.fft(data[:,[0,i]])))
 fourierdata=np.array(fourierdata)
 print(fourierdata)
 
 #plot real fourier and imaginary fourier
+for N in range(0,27):
+    pl.plot(np.real(fourierdata[:,N]))
+    pl.plot(np.imag(fourierdata[:,N]), "--k")
+pl.show()
