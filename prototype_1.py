@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd 
 import csv as cs
 import matplotlib.pyplot as pl 
+import scipy as sc
+import scipy.fftpack as ff
 
 da = ''
 
@@ -46,3 +48,11 @@ differ=(diff(data[:,1],data[:,0]))
 pl.plot(data[:,0],differ)
 pl.show()
 
+#fourier transform
+fourierdata=[]
+for i in range(1,len(data[:])):
+    fourierdata.append(np.array(ff.fft(data[:,i])))
+
+fourierdata=np.array(fourierdata)
+
+print(fourierdata)
