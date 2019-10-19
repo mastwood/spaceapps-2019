@@ -21,7 +21,7 @@ label = tk.Label(root, textvariable = var)
 var.set("Important geomagnetic data here :")
 label.pack()
 
-#Call back for Button
+#call back for Button
 window = tk.Tk()
 
 def selectfile():
