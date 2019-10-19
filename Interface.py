@@ -8,12 +8,10 @@ root.geometry("800x800")
 #importing colours for window
 Colour = namedtuple('RGB','red, green, blue')
 colours = {} #dict of colours
-
 class RGB(Colour):
     def hex_format(self):
         '''Returns colour in hex format'''
         return '#{:02X}{:02X}{:02X}'.format(self.red,self.green,self.blue)
-
 steelblue = RGB(79,148,205)
 grey = RGB(205,201,201)
 
