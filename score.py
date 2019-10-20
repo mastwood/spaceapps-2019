@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd 
 import csv as cs
 import matplotlib.pyplot as pl 
 import pyhht as hht
@@ -25,10 +24,11 @@ splitdata2=np.reshape(splitdata2,(int(len(splitdata2)/4),4))
 
 longlat = []
 for i in range(0, len(splitdata2)):
-    splitdata2[i][3] = float(splitdata2[i][1])*np.pi/180
-    longlat.append(np.append(splitdata2[i], float(splitdata2[i][2])*np.pi/180))
+    splitdata2[i][3] = float(splitdata2[i][1])*np.pi/270
+    longlat.append(np.append(splitdata2[i], float(splitdata2[i][2])*np.pi/270))
 longlat=np.array(longlat)
-
+Names=longlat[0:-1,0]
+print(Names)
 with open('./Data/dataset1.txt','r') as fil:
     da2=fil.readlines()
 
@@ -105,8 +105,8 @@ def score_full(time_1,Fourier,column,imf,imfs):
             else:
                 c=np.corrcoef(imfs[i][j-7:25],imf[j-7:25])[0,1]
 
-            score = score + np.abs((1-np.abs(c))*(Fourier[i][2]-Fourier[column][2])*getDist(getName(i),getName(column)))
-    sc=np.sum(score[:,j]/np.max(score[:,j]))
+            score = score + np.abs((1-np.abs(c))*(Fourier[i][2]-Fourier[column][2])/getDist(getName(i),getName(column)))
+    sc=np.sum(score[:,j])
     #print(sc)
     return sc
 k=[]
@@ -118,8 +118,13 @@ for j in range(0,744):
         p.append(score_full(j,Fourier,i,imfs[i],imfs))
     k.append(p/np.max(p))
     bar.next()
+with open('./Data/Score_data.txt','w') as fileOpen:
+    fileOpen.write(Names)
+    for c in range(1,26):
+        fileOpen.write((k.T)[:,c])
 bar.finish()
 pl.imshow(np.array(k).T,aspect=744/26)
+pl.colorbar()
 pl.show()
 for i in range(1,27):
     ax = pl.subplot(27,1,i)
