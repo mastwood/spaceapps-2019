@@ -54,6 +54,7 @@ ProtoPeaks=scipy.signal.find_peaks(data[:,1], height=0, threshold=0, distance=1,
 Peaks=ProtoPeaks[0]
 print(Peaks)
 print(len(Peaks))
+
 #Print and plot the peaks.
 pl.plot(data[:,1])
 pl.plot(Peaks,data[Peaks,1], 'ro', color='red')
