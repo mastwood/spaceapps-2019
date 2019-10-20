@@ -19,10 +19,13 @@ class RGB(Colour):
 steelblue = RGB(79,148,205)
 grey = RGB(205,201,201)
 
+#creating a background
+root.configure(background = 'light blue')
+
 #label for button
 var = tk.StringVar()
-label = tk.Label(root, textvariable = var)
-var.set("Important geomagnetic data here :")
+label = tk.Label(root, textvariable = var, bg = 'light blue' )
+var.set("Input geomagnetic data here :")
 label.pack()
 
 #call back for Button
@@ -36,5 +39,7 @@ def selectfile():
 #button to import data in
 button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format(), command = selectfile)
 button.pack()
+
+#
 
 root.mainloop()
