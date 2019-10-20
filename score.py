@@ -105,7 +105,7 @@ def score_full(time_1,Fourier,column,imf,imfs):
             else:
                 c=np.corrcoef(imfs[i][j-7:25],imf[j-7:25])[0,1]
 
-            score = score + np.abs((1-np.abs(c))*(Fourier[i][2]-Fourier[column][2])/getDist(getName(i),getName(column)))
+            score = score + np.abs((1-np.abs(c))*(Fourier[i][2]-Fourier[column][2])*getDist(getName(i),getName(column)))
     sc=np.sum(score[:,j])
     #print(sc)
     return sc
@@ -122,7 +122,7 @@ pl.imshow(np.array(k).T,aspect=744/26)
 with open('./Data/Score_data.txt','w') as fileOpen:
     fileOpen.write(str(list(Names)).replace('[','').replace(']',''))
     fileOpen.write('\n')
-    for c in range(1,26):
+    for c in range(1,744):
         fileOpen.write(str(list(np.array(k)[c,:])).replace('[','').replace(']',''))
         fileOpen.write('\n')
 bar.finish()
