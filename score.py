@@ -118,10 +118,11 @@ for j in range(0,744):
         p.append(score_full(j,Fourier,i,imfs[i],imfs))
     k.append(p/np.max(p))
     bar.next()
+k=np.array(k)
 with open('./Data/Score_data.txt','w') as fileOpen:
-    fileOpen.write(Names)
+    fileOpen.write(str(list(Names)).replace('[','').replace(']',''))
     for c in range(1,26):
-        fileOpen.write((k.T)[:,c])
+        fileOpen.write(np.array2string((k.T)[:,c], formatter={'float_kind':lambda x: "%.5f" % x},separator=',').replace('[','').replace(']',''))
 bar.finish()
 pl.imshow(np.array(k).T,aspect=744/26)
 pl.colorbar()
