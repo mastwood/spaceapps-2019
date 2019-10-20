@@ -26,7 +26,7 @@ root.configure(background = 'light blue')
 var = tk.StringVar()
 label = tk.Label(root, textvariable = var, bg = 'light blue' )
 var.set("Input geomagnetic data here :")
-label.pack()
+label.place(x = 310, y = 1)
 
 #call back for Button
 def selectfile():
@@ -37,9 +37,12 @@ def selectfile():
     
 
 #button to import data in
-button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format(), command = selectfile)
-button.pack()
+button = tk.Button(root, text="Import Data",  bg=grey.hex_format(), activebackground=steelblue.hex_format(), command = selectfile)
+button.place(x = 350, y = 37)
 
-#
+#creating a spot for output data
+outputbox = tk.LabelFrame( root, bg = 'white', text="This is the resulting data", height = 600, width = 600,  )
+outputbox.place(x = 100, y = 175)
+
 
 root.mainloop()
