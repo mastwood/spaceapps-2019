@@ -42,7 +42,56 @@ button.place(x = 350, y = 37)
 
 #creating a spot for output data
 outputbox = tk.LabelFrame( root, bg = 'white', text="This is the resulting data", height = 600, width = 600,  )
-outputbox.place(x = 100, y = 175)
+outputbox.place(x = 100, y = 110)
+
+#istructions for the menu
+m = tk.StringVar()
+instruct = tk.Label(root, textvariable = m, bg = 'light blue' )
+m.set("Please choose a location from the menu at the top")
+instruct.place(x = 250, y = 80)
+
+#create a menu to choose which plot from
+
+#This will be thhe command that displays the graphs
+def donothing():
+    picture = tk.PhotoImage(file = "sunshine.gif")
+    image = tk.Canvas.create_image(500, 500, image=picture)
+    image.place(x= 125, y= 135)
+
+   
+
+menubar = tk.Menu(root, bg = 'grey')
+filemenu = tk.Menu(menubar, tearoff=0)
+filemenu.add_command(label="BACK", command=donothing)
+filemenu.add_command(label="FCHP", command=donothing)
+filemenu.add_command(label="FCHU", command=donothing)
+filemenu.add_command(label="FSIM", command=donothing)
+filemenu.add_command(label="FSMI", command=donothing)
+filemenu.add_command(label="GILL", command=donothing)
+filemenu.add_command(label="LGRR", command=donothing)
+filemenu.add_command(label="MCMU", command=donothing)
+filemenu.add_command(label="MSTK", command=donothing)
+filemenu.add_command(label="NORM", command=donothing)
+filemenu.add_command(label="POLS", command=donothing)
+filemenu.add_command(label="RABB", command=donothing)
+filemenu.add_command(label="THRF", command=donothing)
+filemenu.add_command(label="VULC", command=donothing)
+filemenu.add_command(label="WEYB", command=donothing)
+filemenu.add_command(label="WGRY", command=donothing)
+filemenu.add_command(label="BLC", command=donothing)
+filemenu.add_command(label="BRD", command=donothing)
+filemenu.add_command(label="CBB", command=donothing)
+filemenu.add_command(label="FCC", command=donothing)
+filemenu.add_command(label="IQA", command=donothing)
+filemenu.add_command(label="MEA", command=donothing)
+filemenu.add_command(label="OTT", command=donothing)
+filemenu.add_command(label="RES", command=donothing)
+filemenu.add_command(label="STJ", command=donothing)
+filemenu.add_command(label="VIC", command=donothing)
+menubar.add_cascade(label="Location", menu=filemenu)
+
+root.configure(menu = menubar)
+
 
 
 root.mainloop()
