@@ -1,6 +1,8 @@
 import tkinter as tk
 from collections import namedtuple, OrderedDict
 from tkinter.filedialog import askopenfilename
+import numpy as np 
+from tkinter.MessageBox import showinfo
 
 #window
 root = tk.Tk()
@@ -24,8 +26,10 @@ label.pack()
 
 #call back for Button
 def selectfile():
-    filename = askopenfilename (initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),))
-    print(filename)
+    filename = askopenfilename (initialdir = "/", title = "Select file", filetypes = ("text files","*.txt"))
+    np.loadtxt(fname = filename)
+    showinfo("Thank You", "Data uploaded successfully")
+    
 
 #button to import data in
 button = tk.Button(root, text="Import Data", bg=grey.hex_format(), activebackground=steelblue.hex_format(), command = selectfile)
