@@ -24,8 +24,8 @@ splitdata2=np.reshape(splitdata2,(int(len(splitdata2)/4),4))
 
 longlat = []
 for i in range(0, len(splitdata2)):
-    splitdata2[i][3] = float(splitdata2[i][1])*np.pi/270
-    longlat.append(np.append(splitdata2[i], float(splitdata2[i][2])*np.pi/270))
+    splitdata2[i][3] = float(splitdata2[i][1])*np.pi/180
+    longlat.append(np.append(splitdata2[i], float(splitdata2[i][2])*np.pi/180))
 longlat=np.array(longlat)
 Names=longlat[0:-1,0]
 print(Names)
@@ -118,13 +118,15 @@ for j in range(0,744):
         p.append(score_full(j,Fourier,i,imfs[i],imfs))
     k.append(p/np.max(p))
     bar.next()
-k=np.array(k)
+pl.imshow(np.array(k).T,aspect=744/26)
 with open('./Data/Score_data.txt','w') as fileOpen:
     fileOpen.write(str(list(Names)).replace('[','').replace(']',''))
+    fileOpen.write('\n')
     for c in range(1,26):
-        fileOpen.write(np.array2string((k.T)[:,c], formatter={'float_kind':lambda x: "%.5f" % x},separator=',').replace('[','').replace(']',''))
+        fileOpen.write(str(list(np.array(k)[c,:])).replace('[','').replace(']',''))
+        fileOpen.write('\n')
 bar.finish()
-pl.imshow(np.array(k).T,aspect=744/26)
+
 pl.colorbar()
 pl.show()
 for i in range(1,27):
