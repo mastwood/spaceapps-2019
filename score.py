@@ -27,7 +27,7 @@ for i in range(0, len(splitdata2)):
     splitdata2[i][3] = float(splitdata2[i][1])*np.pi/180
     longlat.append(np.append(splitdata2[i], float(splitdata2[i][2])*np.pi/180))
 longlat=np.array(longlat)
-Names=longlat[0:-1,0]
+Names=longlat[:,0]
 print(Names)
 with open('./Data/dataset1.txt','r') as fil:
     da2=fil.readlines()
