@@ -6,6 +6,7 @@ import pyhht as hht
 import pyhht.visualization as vis
 import pyhht.utils as hut
 import scipy.signal as si
+from progress.bar import Bar
 
 r = 6371000
 s = '.\Data\dataset1.txt'
@@ -79,25 +80,49 @@ def find_nearest(a, a0):
     "Element in nd array `a` closest to the scalar value `a0`"
     idx = np.abs(a - a0).argmin()
     return a.flat[idx],idx
-def score_full(time_1,Fourier,column):
+
+def get_imf(i):
+    decomposer=hht.EMD(data[:,i+1]+data[:,0])
+    imf_highfreq=decomposer.decompose()[2]
+    return imf_highfreq
+
+imfs=[]
+for i in range(0,26):
+    imfs.append(get_imf(i))
+
+def score_full(time_1,Fourier,column,imf,imfs):
     score=0
     t=Fourier[0,:][1]
-    j=find_nearest(t,time_1)[1]
 
+    j=find_nearest(t,time_1)[1]
     for i in range(0,26):
         if column!=i:
-            score = score + np.abs(Fourier[i][2]-Fourier[column][2])*getDist(getName(i),getName(column))
-    sc=np.sum(score[:,j])
+            c=0
+            if j>=7 and j<=t[-1]-7:
+                c=np.corrcoef(imfs[i][j-7:j+7],imf[j-7:j+7])[0,1]
+            elif j < 7:
+                c=np.corrcoef(imfs[i][0:j+7],imf[0:j+7])[0,1]
+            else:
+                c=np.corrcoef(imfs[i][j-7:25],imf[j-7:25])[0,1]
+
+            score = score + np.abs((1-np.abs(c))*(Fourier[i][2]-Fourier[column][2])*getDist(getName(i),getName(column)))
+    sc=np.sum(score[:,j]/np.max(score[:,j]))
     #print(sc)
     return sc
 k=[]
+
+bar= Bar("Processing", max=744)
 for j in range(0,744):
     p=[]
     for i in range(0,26):
-        p.append(score_full(j,Fourier,i))
+        p.append(score_full(j,Fourier,i,imfs[i],imfs))
     k.append(p/np.max(p))
-
+    bar.next()
+bar.finish()
 pl.imshow(np.array(k).T,aspect=744/26)
 pl.show()
-
+for i in range(1,27):
+    ax = pl.subplot(27,1,i)
+    ax.plot(data[:,0],data[:,i])
+pl.show()
 
