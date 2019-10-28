@@ -196,7 +196,7 @@ instruct.place(x = 250, y = 80)
 
 #create a menu to choose which plot from
 
-#This will be thhe command that displays the graphs
+#This will be the command that displays the graphs
 def donothing():
     picture = tk.PhotoImage(file = "sunshine.gif")
     image = tk.Canvas.create_image(500, 500, image=picture)
